@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import products from './products';
+import '../Cart.css'; // Assuming you will create this CSS file for additional styling
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -17,23 +18,26 @@ export default function Cart() {
   }
 
   return (
-    <div>
-      <h1 style={{ fontSize: "3em", color: "white", paddingLeft: "20px" }}>Shopping Cart 🛒</h1>
-      <hr></hr>
-      <ul>
+    <div className="cart-container">
+      <h1 className="cart-title">Shopping Cart 🛒</h1>
+      <hr />
+      <ul className="cart-list">
         {cartItems.map((item, index) => {
           const product = products[item.key - 1];
           return product ? (
-            <div key={item.key}>
-              <img src={product.img} alt={product.text} />
-              <button
-                id='remove'
-                onClick={() => deleteKey(item.key)}
-                style={{ margin: "5px", cursor: "pointer" }}
-              >
-                -
-              </button>
-            </div>
+            <li key={item.key} className="cart-item">
+              <img src={product.img} alt={product.text} className="cart-item-image" />
+              <div className="cart-item-details">
+                <h2 className="cart-item-title">{product.text}</h2>
+                <button
+                  id='remove'
+                  onClick={() => deleteKey(item.key)}
+                  className="cart-item-remove-button"
+                >
+                  Remove
+                </button>
+              </div>
+            </li>
           ) : null;
         })}
       </ul>
