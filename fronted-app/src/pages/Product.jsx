@@ -2,7 +2,6 @@ import React from 'react';
 import '../App.css'
 export default function Product({ img, text, id , onAdd, onDelete }) {
 
-  // Function to add item to localStorage
  
 
   return (

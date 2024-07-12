@@ -2,10 +2,10 @@ import '../App.css';
 import Product from './Product';
 import products from './products';
 import { useState, useEffect } from 'react';
-
+import {useNavigate} from 'react-router-dom'
 function Home() {
   const [count, setCount] = useState(localStorage.length);
-
+    const navigate=useNavigate();
   function add(key) {
     localStorage.setItem(key, key);
     setCount(localStorage.length)
@@ -35,11 +35,10 @@ function Home() {
     <div className="App">
       <h1 style={{ color: 'white', fontSize: '5em' }}>ZEPTO</h1>
       <nav>
-        <ul style={{ listStyle: 'none', columnCount: 3, backgroundColor: 'white', padding: '5px' }}>
+        <ul style={{ listStyle: 'none', columnCount: 2, backgroundColor: 'white', padding: '5px' }}>
           <li style={{ cursor: 'pointer' }}><a href="/" style={{textDecoration:"none"}}>Home</a></li>
-          <li style={{ cursor: 'pointer' }}><a href="/products" style={{textDecoration:"none"}}> Products</a></li>
           <li>
-            <button id='addToCart'>
+            <button onClick={()=>navigate('/cart')} id='addToCart'>
             🛒 {count}
             </button>
           </li>
