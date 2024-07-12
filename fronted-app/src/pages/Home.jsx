@@ -49,8 +49,9 @@ function Home() {
                  onDelete={deleteKey}
           img={product.img}
           text={product.text}
-          id={product.id || index}  // Ensure that each Product has a unique `id`
-          key={product.id || index} // Use `id` if available, otherwise use `index`
+          id={product.id || index}  
+          key={product.id || index} 
+          cost={product.cost}
         />
       ))}
     </div>

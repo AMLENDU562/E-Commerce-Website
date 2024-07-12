@@ -28,6 +28,7 @@ export default function Cart() {
             <li key={item.key} className="cart-item">
               <img src={product.img} alt={product.text} className="cart-item-image" />
               <div className="cart-item-details">
+                
                 <h2 className="cart-item-title">{product.text}</h2>
                 <button
                   id='remove'
@@ -37,6 +38,8 @@ export default function Cart() {
                   Remove
                 </button>
               </div>
+              <h2 style={{paddingLeft:"50px"}}>₹ {product.cost}</h2>
+
             </li>
           ) : null;
         })}

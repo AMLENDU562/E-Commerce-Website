@@ -4,12 +4,14 @@ const products = [
     {
       id: 1,
       text: "Samsung S5",
-      img:Mobile
+      img:Mobile,
+      cost:50000
     },
     {
         id: 2,
         text: "Razor Gaming",
-        img:Laptop
+        img:Laptop,
+        cost:100000
     }
   ];
   
