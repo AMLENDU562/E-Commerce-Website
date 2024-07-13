@@ -6,8 +6,8 @@ import {useNavigate} from 'react-router-dom'
 function Home() {
   const [count, setCount] = useState(localStorage.length);
     const navigate=useNavigate();
-  function add(key) {
-    localStorage.setItem(key, key);
+  function add(key,count) {
+    localStorage.setItem(key,count);
     setCount(localStorage.length)
   }
 

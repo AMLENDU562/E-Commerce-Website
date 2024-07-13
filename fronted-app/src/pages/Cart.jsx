@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import products from './products';
 import { useNavigate } from "react-router-dom";
 import '../Cart.css'; // Assuming you will create this CSS file for additional styling
+import CartItem from './CartItem';
 
 export default function Cart() {
   const navigate = useNavigate();
@@ -13,8 +14,15 @@ export default function Cart() {
     let total = 0;
     const items = Object.keys(localStorage).map((key) => {
       const productId = parseInt(key, 10) - 1;
-      total += products[productId].cost;
-      return { key: key, quantity: localStorage.getItem(key) };
+      const product = products[productId];
+      const quantity = parseInt(localStorage.getItem(key), 10);
+
+      if(product){
+      total += product.cost * quantity;
+      }
+
+      return { key: key, quantity: quantity };
+      
     });
     setSubTotal(total);
     setCartItems(items);
@@ -23,14 +31,15 @@ export default function Cart() {
 
   function deleteKey(key) {
     const productId = parseInt(key, 10) - 1;
-    const itemCost = products[productId].cost;
-
-    localStorage.removeItem(key);
-    setCount(count - 1); // Decrease count by 1
-    setSubTotal(subTotal - itemCost); // Subtract removed item's cost from subtotal
-    setCartItems(cartItems.filter(item => item.key !== key));
+    const product = products[productId];
+    if (product) {
+      const itemCost = product.cost * parseInt(localStorage.getItem(key), 10);
+      localStorage.removeItem(key);
+      setCount(count - 1);
+      setSubTotal(subTotal - itemCost);
+      setCartItems(cartItems.filter(item => item.key !== key));
+    }
   }
-
   return (
     <div className="cart-container">
       <h1 className="cart-title">Shopping Cart 🛒</h1>
@@ -51,20 +60,16 @@ export default function Cart() {
         {cartItems.map((item) => {
           const product = products[parseInt(item.key, 10) - 1];
           return product ? (
-            <li key={item.key} className="cart-item">
-              <img src={product.img} alt={product.text} className="cart-item-image" />
-              <div className="cart-item-details">
-                <h2 className="cart-item-title">{product.text}</h2>
-                <button
-                  id='remove'
-                  onClick={() => deleteKey(item.key)}
-                  className="cart-item-remove-button"
-                >
-                  Remove
-                </button>
-              </div>
-              <h2 className="cart-item-price">₹ {product.cost}</h2>
-            </li>
+            <CartItem 
+              key={item.key} 
+              id={item.key} 
+              img={product.img} 
+              text={product.text} 
+              cost={product.cost} 
+              quantity={item.quantity} 
+              deleteKey={deleteKey} 
+              updateSubTotal={setSubTotal} 
+            />
           ) : null;
         })}
       </ul>
