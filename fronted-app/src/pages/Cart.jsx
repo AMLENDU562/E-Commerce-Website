@@ -5,19 +5,29 @@ import '../Cart.css'; // Assuming you will create this CSS file for additional s
 
 export default function Cart() {
   const navigate = useNavigate();
+  const [subTotal, setSubTotal] = useState(0);
   const [cartItems, setCartItems] = useState([]);
-  const [count, setCount] = useState(localStorage.length);
+  const [count, setCount] = useState(0); // State to track count of items in cart
 
   useEffect(() => {
+    let total = 0;
     const items = Object.keys(localStorage).map((key) => {
-      return { key: key, value: localStorage.getItem(key) };
+      const productId = parseInt(key, 10) - 1;
+      total += products[productId].cost;
+      return { key: key, quantity: localStorage.getItem(key) };
     });
+    setSubTotal(total);
     setCartItems(items);
+    setCount(items.length); // Update count based on items in cart
   }, []);
 
   function deleteKey(key) {
+    const productId = parseInt(key, 10) - 1;
+    const itemCost = products[productId].cost;
+
     localStorage.removeItem(key);
-    setCount(localStorage.length);
+    setCount(count - 1); // Decrease count by 1
+    setSubTotal(subTotal - itemCost); // Subtract removed item's cost from subtotal
     setCartItems(cartItems.filter(item => item.key !== key));
   }
 
@@ -39,7 +49,7 @@ export default function Cart() {
       <hr />
       <ul className="cart-list">
         {cartItems.map((item) => {
-          const product = products[item.key - 1];
+          const product = products[parseInt(item.key, 10) - 1];
           return product ? (
             <li key={item.key} className="cart-item">
               <img src={product.img} alt={product.text} className="cart-item-image" />
@@ -58,6 +68,8 @@ export default function Cart() {
           ) : null;
         })}
       </ul>
+      <hr />
+      <h1>Subtotal: ₹ {subTotal}</h1>
     </div>
   );
 }
