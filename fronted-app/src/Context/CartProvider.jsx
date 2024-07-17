@@ -4,7 +4,7 @@ import '../App.css';
 const UserContext = createContext();
 
 export default function CartProvider(props) {
-  const [count, setCount] = useState(localStorage.length-1);
+  const [count, setCount] = useState(localStorage.length);
   
  
 
