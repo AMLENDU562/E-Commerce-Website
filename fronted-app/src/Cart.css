@@ -41,24 +41,9 @@
     color:red;
     }
 
-.nav-list {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  background-color: white;
-  padding: 5px;
-  width: 100%;
-  margin: 0;
-}
 
-.nav-list-item {
-  cursor: pointer;
-}
 
-.nav-list-link {
-  text-decoration: none;
-  color: black;
-}
+
 
 .cart-list {
   list-style: none;

@@ -4,7 +4,7 @@ import {useState} from 'react'
 
 export default function Product({ img, text, id , onAdd, onDelete,cost }) {
 
-      const [count,setCount]=useState(0);
+      const [count,setCount]=useState(1);
       function AddItem(key)
       {
 
@@ -14,7 +14,7 @@ export default function Product({ img, text, id , onAdd, onDelete,cost }) {
       function DeleteItem(key)
       {
 
-          if(count!==0)
+          if(count!==1)
             setCount(count-1);
 
       }
