@@ -10,12 +10,12 @@ export default function CartProvider(props) {
 
   function add(key, count) {
     localStorage.setItem(key, count);
-    setCount(localStorage.length-1); 
+    setCount(localStorage.length); 
   }
 
   function deleteKey(key) {
     localStorage.removeItem(key);
-    setCount(localStorage.length-1); 
+    setCount(localStorage.length); 
   }
   
 
